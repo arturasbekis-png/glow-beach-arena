@@ -3,7 +3,11 @@ export const esc = (s: string): string =>
 
 /** Wrap each line of a heading in a masked span so it can slide up on reveal. */
 export const lines = (...parts: string[]): string =>
-  parts.map((p, i) => `<span class="line"><span class="line__in" style="--i:${i}">${esc(p)}</span></span>`).join('');
+  // A trailing space on every line but the last keeps the heading's text readable ("GLOW BEACH ARENA") for crawlers
+  // and screen readers; it collapses at the end of each line box, so the layout is unchanged.
+  parts
+    .map((p, i) => `<span class="line"><span class="line__in" style="--i:${i}">${esc(p)}${i < parts.length - 1 ? ' ' : ''}</span></span>`)
+    .join('');
 
 /** Split text into word spans; used for scroll-driven text fill. */
 export const words = (text: string): string =>
