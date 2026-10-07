@@ -77,6 +77,9 @@ export const en: Content = {
     title: 'See the arena.',
     text: 'Sand, light and space for sport and events in Vilnius.',
     tags: ['Arena', 'Court', 'Light', 'Net', 'Sand'],
+    open: 'Open photo',
+    prev: 'Previous',
+    next: 'Next',
   },
   prices: {
     title: 'Prices.',

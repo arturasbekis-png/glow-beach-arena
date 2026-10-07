@@ -7,6 +7,7 @@ import { bindMotion, initGlobalMotion, refreshLayout } from './motion';
 import { bindForm, captureForm, presetType } from './form';
 import { initAnalytics } from './analytics';
 import { mountConsent, refreshConsent } from './consent';
+import { initLightbox, refreshLightbox } from './lightbox';
 import { buildGameShell, gameHeadHtml, mountGame } from './sections/game';
 import type { SectionDef } from './sections/def';
 import { hero } from './sections/hero';
@@ -100,6 +101,7 @@ const render = (instant: boolean): void => {
   bindMotion(app, instant);
   refreshLayout();
   refreshConsent(c);
+  refreshLightbox(c);
 };
 
 /* ---------- menu ---------- */
@@ -184,7 +186,9 @@ document.addEventListener(
     if (el instanceof HTMLImageElement && el.classList.contains('logo__img')) {
       el.closest('.logo__slot')?.classList.add('is-text');
       el.remove();
-    } else if (el instanceof HTMLImageElement && el.closest('.slide__frame, .hero__bg')) {
+    } else if (el instanceof HTMLImageElement && el.closest('.shot')) {
+      el.closest('.shot')?.remove();
+    } else if (el instanceof HTMLImageElement && el.closest('.hero__bg')) {
       el.remove();
     } else if (el instanceof HTMLSourceElement) {
       el.closest('video')?.remove();
@@ -197,4 +201,5 @@ initGlobalMotion();
 render(false);
 initAnalytics();
 mountConsent(content);
+initLightbox(content);
 if (location.hash.length > 1) requestAnimationFrame(() => goTo(location.hash, false));

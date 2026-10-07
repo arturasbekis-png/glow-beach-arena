@@ -3,8 +3,8 @@ import { clamp, pad, reduceMotion } from './util';
 import { startBeams } from './beams';
 
 /**
- * Controlled motion: reveals, scroll-fill text, light parallax, marquee drift, stacked panels and a pinned
- * horizontal gallery. One rAF loop, driven by scroll/resize; everything degrades to static under reduced motion.
+ * Controlled motion: reveals, scroll-fill text, light parallax, marquee drift and stacked panels.
+ * One rAF loop, driven by scroll/resize; everything degrades to static under reduced motion.
  */
 
 interface State {
@@ -13,7 +13,6 @@ interface State {
   parallax: { el: HTMLElement; host: HTMLElement; speed: number }[];
   marquees: { track: HTMLElement; dir: number; x: number; half: number }[];
   panels: HTMLElement[];
-  gallery: { run: HTMLElement; track: HTMLElement } | null;
   sections: { id: string; el: HTMLElement }[];
   marqueeVisible: boolean;
   heroVisible: boolean;
@@ -25,7 +24,6 @@ const st: State = {
   parallax: [],
   marquees: [],
   panels: [],
-  gallery: null,
   sections: [],
   marqueeVisible: false,
   heroVisible: true,
@@ -39,7 +37,6 @@ let raf = 0;
 let lastY = 0;
 let particlesStop: (() => void) | null = null;
 let beamsStop: (() => void) | null = null;
-const desktopGallery = window.matchMedia('(min-width: 861px)');
 
 const header = (): HTMLElement | null => document.querySelector('.header');
 
@@ -116,30 +113,8 @@ const frame = (): void => {
     }
   }
 
-  // pinned horizontal gallery (desktop)
-  if (st.gallery && desktopGallery.matches) {
-    const { run, track } = st.gallery;
-    const travel = track.scrollWidth - window.innerWidth;
-    const rr = run.getBoundingClientRect();
-    const span = run.offsetHeight - vh;
-    const p = span > 0 ? clamp(-rr.top / span, 0, 1) : 0;
-    track.style.transform = `translate3d(${(-p * travel).toFixed(1)}px,0,0)`;
-  }
-
   // keep running while something is continuously animating
   if (!rm && (st.marqueeVisible || Math.abs(dy) > 0.5)) request();
-};
-
-const measureGallery = (): void => {
-  const g = st.gallery;
-  if (!g) return;
-  if (desktopGallery.matches) {
-    const travel = Math.max(0, g.track.scrollWidth - window.innerWidth);
-    g.run.style.height = `${Math.round(travel + window.innerHeight)}px`;
-  } else {
-    g.run.style.height = '';
-    g.track.style.transform = '';
-  }
 };
 
 const measureMarquees = (): void => {
@@ -282,11 +257,6 @@ export const bindMotion = (root: HTMLElement, instant: boolean): void => {
   // stacked panels
   st.panels = Array.from(root.querySelectorAll<HTMLElement>('.format'));
 
-  // gallery
-  const run = root.querySelector<HTMLElement>('.gallery');
-  const track = root.querySelector<HTMLElement>('[data-gallery-track]');
-  st.gallery = run && track ? { run, track } : null;
-
   // concepts stage
   const concepts = Array.from(root.querySelectorAll<HTMLElement>('[data-concept]'));
   const scenes = Array.from(root.querySelectorAll<HTMLElement>('.concepts__stage .scene'));
@@ -330,7 +300,6 @@ export const bindMotion = (root: HTMLElement, instant: boolean): void => {
     else heroEl.classList.add('is-ready');
   }
 
-  measureGallery();
   measureMarquees();
   lastY = window.scrollY;
   request();
@@ -340,28 +309,20 @@ export const bindMotion = (root: HTMLElement, instant: boolean): void => {
 export const initGlobalMotion = (): void => {
   window.addEventListener('scroll', request, { passive: true });
   window.addEventListener('resize', () => {
-    measureGallery();
     measureMarquees();
     request();
   });
-  desktopGallery.addEventListener('change', () => {
-    measureGallery();
-    request();
-  });
   void document.fonts?.ready.then(() => {
-    measureGallery();
     measureMarquees();
     request();
   });
   window.addEventListener('load', () => {
-    measureGallery();
     measureMarquees();
     request();
   });
 };
 
 export const refreshLayout = (): void => {
-  measureGallery();
   measureMarquees();
   request();
 };

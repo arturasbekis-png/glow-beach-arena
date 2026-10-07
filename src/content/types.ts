@@ -49,7 +49,7 @@ export interface Content {
   training: { title: string; words: string[] };
   tournaments: { title: string; text: string };
   events: { title: string; text: string; formats: FormatItem[] };
-  gallery: { title: string; text: string; tags: string[] };
+  gallery: { title: string; text: string; tags: string[]; open: string; prev: string; next: string };
   prices: {
     title: string;
     text: string;

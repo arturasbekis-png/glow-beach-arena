@@ -77,6 +77,9 @@ export const lt: Content = {
     title: 'Pamatyk areną.',
     text: 'Smėlis, šviesa ir erdvė sportui bei renginiams Vilniuje.',
     tags: ['Arena', 'Aikštelė', 'Šviesa', 'Tinklas', 'Smėlis'],
+    open: 'Atidaryti nuotrauką',
+    prev: 'Ankstesnė',
+    next: 'Kita',
   },
   prices: {
     title: 'Kainos.',
