@@ -1047,6 +1047,19 @@ ol {
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(244, 244, 240, 0.6);
 }
+/* mobile: keep the drift, but contain it — smaller type and soft-faded edges instead of hard letter cuts */
+@media (max-width: 859px) {
+  .marquee {
+    max-width: 100%;
+    contain: paint;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  }
+  .marquee__track span,
+  .marquee__track i {
+    font-size: clamp(2.6rem, 11.5vw, 5rem);
+  }
+}
 .training__foot {
   display: grid;
   gap: 2rem;
@@ -1214,6 +1227,15 @@ ol {
   font-weight: 300;
   max-width: 38ch;
   color: rgba(244, 244, 240, 0.85);
+}
+/* mobile: stacked panels start below the fixed header instead of sliding under it */
+@media (max-width: 859px) {
+  .format {
+    top: 64px;
+    height: calc(100vh - 64px);
+    height: calc(100svh - 64px);
+    min-height: 456px;
+  }
 }
 @media (min-width: 900px) {
   .format:nth-child(even) .format__body {
