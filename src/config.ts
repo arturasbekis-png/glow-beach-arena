@@ -18,7 +18,7 @@ export const mapUrl =
 
 // Google Analytics 4. Placeholder = analytics is OFF (nothing is loaded or sent). To switch it on, replace the value
 // with the real Measurement ID (G-…) from GA4 > Admin > Data streams. See README "Analytics" (consent!) first.
-export const gaMeasurementId = 'G-XXXXXXXXXX';
+export const gaMeasurementId = 'G-4TF6MCTHXB';
 // While true, nothing is loaded or sent until the visitor clicks "Sutinku" in the consent notice (src/consent.ts).
 // Set it to false only after deciding consent is not required (the notice is then never shown).
 export const analyticsNeedsConsent = true;
