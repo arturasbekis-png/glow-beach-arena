@@ -1,0 +1,142 @@
+import type { Content } from './types';
+
+// Natural English rendering of the Lithuanian source. Same structure, same facts, nothing added.
+export const en: Content = {
+  meta: {
+    title: 'GLOW BEACH ARENA — Beach volleyball arena in Vilnius',
+    description:
+      'GLOW BEACH ARENA is a beach volleyball arena in Vilnius where sport, events and active time come together in one space. Vilnius, Kareivių g. 15A.',
+  },
+  ui: {
+    menu: 'Menu',
+    close: 'Close',
+    reserve: 'Book',
+    game: 'Game',
+    skip: 'Skip to content',
+    fullscreen: 'Full screen',
+    language: 'Language',
+    homeLabel: 'GLOW BEACH ARENA — back to top',
+  },
+  nav: [
+    { id: 'arena', label: 'Arena' },
+    { id: 'zaidimas', label: 'Game' },
+    { id: 'treniruotes', label: 'Training' },
+    { id: 'turnyrai', label: 'Tournaments' },
+    { id: 'renginiai', label: 'Events' },
+    { id: 'galerija', label: 'Gallery' },
+    { id: 'kainos', label: 'Prices' },
+    { id: 'rezervacija', label: 'Booking' },
+    { id: 'kontaktai', label: 'Contact' },
+  ],
+  hero: { tagline: 'Beach volleyball arena in Vilnius' },
+  arena: {
+    title: 'GLOW BEACH ARENA',
+    main: 'Beach volleyball arena in Vilnius',
+    secondary: 'Not just a court. The whole atmosphere.',
+    body: 'GLOW BEACH ARENA is a beach volleyball arena in Vilnius where sport, events and active time come together in one space.',
+    additional:
+      'Real sand, a professional setting and a distinctive atmosphere. A space for training, competition, birthdays and corporate events.',
+    concepts: [
+      { key: 'sand', title: 'Sand', text: 'A true beach feeling' },
+      { key: 'light', title: 'Light', text: 'A distinctive arena atmosphere' },
+      { key: 'energy', title: 'Energy', text: 'Sport and active time' },
+      { key: 'events', title: 'Events', text: 'Celebrations and birthdays' },
+    ],
+  },
+  game: { title: 'Game' },
+  training: {
+    title: 'Training',
+    words: ['Training', 'Sand', 'Energy', 'Sport'],
+  },
+  tournaments: {
+    title: 'Tournaments',
+    text: 'Competitions and events in the sand for different groups.',
+  },
+  events: {
+    title: 'One arena. Several formats.',
+    text: 'A space for events: birthdays, corporate celebrations and tournaments.',
+    formats: [
+      {
+        key: 'kids',
+        title: 'Kids’ birthdays',
+        text: 'An active celebration in the sand with games and fun for friends.',
+      },
+      {
+        key: 'corporate',
+        title: 'Corporate events',
+        text: 'An active, different kind of company event: sand, sport, team activities and a great atmosphere.',
+      },
+      {
+        key: 'tournaments',
+        title: 'Tournaments',
+        text: 'Competitions and events in the sand for different groups.',
+      },
+    ],
+  },
+  gallery: {
+    title: 'See the arena.',
+    text: 'Sand, light and space for sport and events in Vilnius.',
+    tags: ['Arena', 'Court', 'Light', 'Net', 'Sand'],
+  },
+  prices: {
+    title: 'Prices.',
+    text: 'The final price depends on the date, duration and number of people. Contact us for an exact quote.',
+    fields: ['Date', 'Duration', 'Number of people'],
+    categories: [
+      {
+        key: 'kids',
+        title: 'Kids’ birthdays',
+        text: 'An active celebration in the sand with games and fun.',
+      },
+      {
+        key: 'corporate',
+        title: 'Corporate events',
+        text: 'An active company event in the sand with sport and fun.',
+      },
+    ],
+    priceLabel: 'Price',
+    priceValue: 'On request',
+    cta: 'Get a quote',
+  },
+  reservation: {
+    title: 'Booking',
+    cta: 'Book',
+    labels: {
+      date: 'Date',
+      duration: 'Duration',
+      people: 'Number of people',
+      type: 'Event / service type',
+      name: 'Name',
+      phone: 'Phone',
+      email: 'Email',
+    },
+    types: {
+      kids: 'Kids’ birthdays',
+      corporate: 'Corporate events',
+      tournaments: 'Tournaments',
+      training: 'Training',
+    },
+    choose: '—',
+    submit: 'Book',
+    invalid: 'Please fill in all fields.',
+    prepared: 'Your request is ready in your email app.',
+    notConfirmed: 'This is not yet a confirmed booking.',
+    fallback:
+      'If your email app did not open, write to rezervacija@auksma.lt or call +370 620 71992.',
+    mailSubject: 'Booking request — GLOW BEACH ARENA',
+  },
+  contacts: {
+    title: 'Contact',
+    address: 'Address',
+    phone: 'Phone',
+    email: 'Email',
+    company: 'Company',
+    companyCode: 'Company code',
+    bank: 'Bank',
+    account: 'Account',
+    call: 'Call',
+    reserve: 'Book',
+  },
+  final: { cta: 'Book' },
+  footer: { rights: '© 2026 GLOW BEACH ARENA' },
+};

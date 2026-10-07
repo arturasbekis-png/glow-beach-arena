@@ -1,0 +1,142 @@
+import type { Content } from './types';
+
+// Lithuanian is the source of truth. Business copy comes verbatim from the brief; nothing else is invented.
+export const lt: Content = {
+  meta: {
+    title: 'GLOW BEACH ARENA — Paplūdimio tinklinio arena Vilniuje',
+    description:
+      'GLOW BEACH ARENA yra paplūdimio tinklinio arena Vilniuje, kur sportas, renginiai ir aktyvus laikas vyksta vienoje erdvėje. Vilnius, Kareivių g. 15A.',
+  },
+  ui: {
+    menu: 'Meniu',
+    close: 'Uždaryti',
+    reserve: 'Rezervuoti',
+    game: 'Žaidimas',
+    skip: 'Pereiti prie turinio',
+    fullscreen: 'Per visą ekraną',
+    language: 'Kalba',
+    homeLabel: 'GLOW BEACH ARENA — į pradžią',
+  },
+  nav: [
+    { id: 'arena', label: 'Arena' },
+    { id: 'zaidimas', label: 'Žaidimas' },
+    { id: 'treniruotes', label: 'Treniruotės' },
+    { id: 'turnyrai', label: 'Turnyrai' },
+    { id: 'renginiai', label: 'Renginiai' },
+    { id: 'galerija', label: 'Galerija' },
+    { id: 'kainos', label: 'Kainos' },
+    { id: 'rezervacija', label: 'Rezervacija' },
+    { id: 'kontaktai', label: 'Kontaktai' },
+  ],
+  hero: { tagline: 'Paplūdimio tinklinio arena Vilniuje' },
+  arena: {
+    title: 'GLOW BEACH ARENA',
+    main: 'Paplūdimio tinklinio arena Vilniuje',
+    secondary: 'Ne tik aikštelė. Visa atmosfera.',
+    body: 'GLOW BEACH ARENA yra paplūdimio tinklinio arena Vilniuje, kur sportas, renginiai ir aktyvus laikas vyksta vienoje erdvėje.',
+    additional:
+      'Tikras smėlis, profesionali aplinka ir išskirtinė atmosfera. Erdvė treniruotėms, varžyboms, gimtadieniams ir įmonių renginiams.',
+    concepts: [
+      { key: 'sand', title: 'Smėlis', text: 'Tikras paplūdimio jausmas' },
+      { key: 'light', title: 'Šviesa', text: 'Išskirtinė arenos atmosfera' },
+      { key: 'energy', title: 'Energija', text: 'Sportas ir aktyvus laikas' },
+      { key: 'events', title: 'Renginiai', text: 'Šventės ir gimtadieniai' },
+    ],
+  },
+  game: { title: 'Žaidimas' },
+  training: {
+    title: 'Treniruotės',
+    words: ['Treniruotės', 'Smėlis', 'Energija', 'Sportas'],
+  },
+  tournaments: {
+    title: 'Turnyrai',
+    text: 'Varžybos ir renginiai smėlyje įvairioms grupėms.',
+  },
+  events: {
+    title: 'Viena arena. Keli formatai.',
+    text: 'Erdvė įvykiams: gimtadieniams, įmonių šventėms ir turnyrams.',
+    formats: [
+      {
+        key: 'kids',
+        title: 'Vaikų gimtadieniai',
+        text: 'Aktyvi šventė smėlyje su žaidimais ir pramogomis draugams.',
+      },
+      {
+        key: 'corporate',
+        title: 'Įmonių šventės',
+        text: 'Aktyvus ir kitoks įmonės renginys: smėlis, sportas, komandinės pramogos ir gera atmosfera.',
+      },
+      {
+        key: 'tournaments',
+        title: 'Turnyrai',
+        text: 'Varžybos ir renginiai smėlyje įvairioms grupėms.',
+      },
+    ],
+  },
+  gallery: {
+    title: 'Pamatyk areną.',
+    text: 'Smėlis, šviesa ir erdvė sportui bei renginiams Vilniuje.',
+    tags: ['Arena', 'Aikštelė', 'Šviesa', 'Tinklas', 'Smėlis'],
+  },
+  prices: {
+    title: 'Kainos.',
+    text: 'Galutinė kaina priklauso nuo datos, trukmės ir žmonių skaičiaus. Susisiekite tiksliam pasiūlymui.',
+    fields: ['Data', 'Trukmė', 'Žmonių skaičius'],
+    categories: [
+      {
+        key: 'kids',
+        title: 'Vaikų gimtadieniai',
+        text: 'Aktyvi šventė smėlyje su žaidimais ir pramogomis.',
+      },
+      {
+        key: 'corporate',
+        title: 'Įmonių šventės',
+        text: 'Aktyvus įmonės renginys smėlyje su sportu ir pramogomis.',
+      },
+    ],
+    priceLabel: 'Kaina',
+    priceValue: 'Pagal užklausą',
+    cta: 'Gauti pasiūlymą',
+  },
+  reservation: {
+    title: 'Rezervacija',
+    cta: 'Rezervuoti',
+    labels: {
+      date: 'Data',
+      duration: 'Trukmė',
+      people: 'Žmonių skaičius',
+      type: 'Renginio / paslaugos tipas',
+      name: 'Vardas',
+      phone: 'Telefonas',
+      email: 'El. paštas',
+    },
+    types: {
+      kids: 'Vaikų gimtadieniai',
+      corporate: 'Įmonių šventės',
+      tournaments: 'Turnyrai',
+      training: 'Treniruotės',
+    },
+    choose: '—',
+    submit: 'Rezervuoti',
+    invalid: 'Užpildykite visus laukus.',
+    prepared: 'Užklausa paruošta jūsų el. pašto programoje.',
+    notConfirmed: 'Tai dar nėra patvirtinta rezervacija.',
+    fallback:
+      'Jei el. pašto programa neatsidarė, rašykite rezervacija@auksma.lt arba skambinkite +370 620 71992.',
+    mailSubject: 'Rezervacijos užklausa — GLOW BEACH ARENA',
+  },
+  contacts: {
+    title: 'Kontaktai',
+    address: 'Adresas',
+    phone: 'Telefonas',
+    email: 'El. paštas',
+    company: 'Įmonė',
+    companyCode: 'Įmonės kodas',
+    bank: 'Bankas',
+    account: 'Sąskaita',
+    call: 'Skambinti',
+    reserve: 'Rezervuoti',
+  },
+  final: { cta: 'Rezervuoti' },
+  footer: { rights: '© 2026 GLOW BEACH ARENA' },
+};

@@ -1,0 +1,20 @@
+{
+  "name": "glow-beach-arena",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GLOW BEACH ARENA — premium beach volleyball arena website (Vilnius). Vanilla TypeScript + esbuild, no runtime dependencies.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p .",
+    "build": "node build.mjs",
+    "check": "npm run typecheck && npm run build",
+    "preview": "node preview.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "typescript": "^6.0.3"
+  }
+}
