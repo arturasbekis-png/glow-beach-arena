@@ -1,4 +1,4 @@
-import { galleryPhotos, has } from '../config';
+import { galleryPhotos, galleryVariants, has } from '../config';
 import { esc, lines, pad } from '../util';
 import type { SectionDef } from './def';
 
@@ -20,10 +20,15 @@ export const gallery: SectionDef = {
         ${photos
           .map((p, i) => {
             const tag = p.tag !== undefined ? g.tags[p.tag] : undefined;
+            const v = galleryVariants(p);
+            const large = `./photos/gallery/${p.file}`;
+            const srcset = v.small
+              ? ` srcset="./photos/gallery/${p.file.replace(/\.webp$/, `-${v.small}.webp`)} ${v.small}w, ${large} ${v.large}w" sizes="(max-width: 860px) 84vw, 760px"`
+              : '';
             return `
           <figure class="slide slide--${i % 3}" style="--ar:${p.w} / ${p.h};--ar-n:${(p.w / p.h).toFixed(4)}">
             <div class="slide__frame">
-              <img src="./photos/gallery/${p.file}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" decoding="async" />
+              <img src="${large}"${srcset} width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" decoding="async" />
             </div>
             <figcaption><span>${pad(i + 1)}</span>${tag ? `<b>${esc(tag)}</b>` : ''}</figcaption>
           </figure>`;
