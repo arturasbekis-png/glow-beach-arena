@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arturasbekis-png.github.io/glow-beach-arena/sitemap.xml

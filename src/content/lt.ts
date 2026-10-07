@@ -3,9 +3,9 @@ import type { Content } from './types';
 // Lithuanian is the source of truth. Business copy comes verbatim from the brief; nothing else is invented.
 export const lt: Content = {
   meta: {
-    title: 'GLOW BEACH ARENA — Paplūdimio tinklinio arena Vilniuje',
+    title: 'GLOW BEACH ARENA — paplūdimio tinklinis Vilniuje',
     description:
-      'GLOW BEACH ARENA yra paplūdimio tinklinio arena Vilniuje, kur sportas, renginiai ir aktyvus laikas vyksta vienoje erdvėje. Vilnius, Kareivių g. 15A.',
+      'GLOW BEACH ARENA — paplūdimio tinklinio arena Vilniuje, Kareivių g. 15A. Treniruotės, turnyrai, vaikų gimtadieniai ir įmonių šventės smėlyje.',
   },
   ui: {
     menu: 'Meniu',

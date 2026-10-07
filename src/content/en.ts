@@ -3,9 +3,9 @@ import type { Content } from './types';
 // Natural English rendering of the Lithuanian source. Same structure, same facts, nothing added.
 export const en: Content = {
   meta: {
-    title: 'GLOW BEACH ARENA — Beach volleyball arena in Vilnius',
+    title: 'GLOW BEACH ARENA — Beach volleyball in Vilnius',
     description:
-      'GLOW BEACH ARENA is a beach volleyball arena in Vilnius where sport, events and active time come together in one space. Vilnius, Kareivių g. 15A.',
+      'GLOW BEACH ARENA is a beach volleyball arena in Vilnius, Kareivių g. 15A. Training, tournaments, kids’ birthdays and corporate events on sand.',
   },
   ui: {
     menu: 'Menu',
