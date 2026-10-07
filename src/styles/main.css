@@ -710,6 +710,67 @@ ol {
   transition-duration: 1.6s;
   transition-delay: calc(0.25s + var(--i, 0) * 0.14s);
 }
+/* Slow light reflection travelling through the title letters (lime → cyan → soft white → cyan → lime).
+   Letters stay white; only a soft tint passes through. Skipped entirely for reduced motion (clean static title). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero__title {
+      --sheen: 0.5; /* band strength over the white letters */
+      --sheen-o: 0.1; /* band strength inside the outlined line */
+    }
+    .hero__title .line__in {
+      color: transparent;
+      background-repeat: no-repeat;
+      background-size: 300% 100%, 100% 100%;
+      background-position: 0% 0, 0 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: title-sheen 8s ease-in-out calc(2.6s + var(--i, 0) * 0.45s) infinite;
+    }
+    .hero__title .line:not(:nth-child(3)) .line__in {
+      background-image:
+        linear-gradient(
+          100deg,
+          rgba(184, 255, 44, 0) 33%,
+          rgba(184, 255, 44, var(--sheen)) 41%,
+          rgba(18, 240, 255, var(--sheen)) 46%,
+          #fff 50%,
+          rgba(18, 240, 255, var(--sheen)) 54%,
+          rgba(184, 255, 44, var(--sheen)) 59%,
+          rgba(184, 255, 44, 0) 67%
+        ),
+        linear-gradient(var(--off), var(--off));
+      filter: drop-shadow(0 0 0.16em rgba(18, 240, 255, 0.1));
+    }
+    /* ARENA keeps its lime outline; the light only passes through the letter interiors, faintly */
+    .hero__title .line:nth-child(3) .line__in {
+      background-image: linear-gradient(
+        100deg,
+        rgba(184, 255, 44, 0) 33%,
+        rgba(184, 255, 44, var(--sheen-o)) 41%,
+        rgba(18, 240, 255, var(--sheen-o)) 46%,
+        rgba(255, 255, 255, 0.12) 50%,
+        rgba(18, 240, 255, var(--sheen-o)) 54%,
+        rgba(184, 255, 44, var(--sheen-o)) 59%,
+        rgba(184, 255, 44, 0) 67%
+      );
+    }
+    @media (max-width: 699px) {
+      .hero__title {
+        --sheen: 0.36;
+        --sheen-o: 0.08;
+      }
+    }
+  }
+}
+@keyframes title-sheen {
+  from {
+    background-position: 100% 0, 0 0;
+  }
+  to {
+    background-position: 0% 0, 0 0;
+  }
+}
 .netline {
   height: 14px;
   margin-block: clamp(1.4rem, 3.4vh, 2.6rem) clamp(1.2rem, 2.6vh, 2rem);
