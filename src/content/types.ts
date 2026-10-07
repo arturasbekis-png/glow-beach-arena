@@ -79,6 +79,9 @@ export interface Content {
     notConfirmed: string;
     fallback: string;
     mailSubject: string;
+    lead: string;
+    notice: string;
+    errors: { email: string; phone: string; date: string; people: string };
   };
   contacts: {
     title: string;

@@ -10,6 +10,13 @@ type Field = (typeof FIELDS)[number];
 
 const state: Partial<Record<Field, string>> = {};
 
+// Today's date in the visitor's own time zone (YYYY-MM-DD) — toISOString() would give the UTC day.
+const localToday = (): string => {
+  const d = new Date();
+  const p = (n: number): string => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+};
+
 export const captureForm = (form: HTMLFormElement | null): void => {
   if (!form) return;
   for (const f of FIELDS) {
@@ -25,7 +32,7 @@ export const restoreForm = (form: HTMLFormElement | null): void => {
     if (el && state[f] !== undefined) el.value = state[f] ?? '';
   }
   const date = form.elements.namedItem('date') as HTMLInputElement | null;
-  if (date) date.min = new Date().toISOString().slice(0, 10);
+  if (date) date.min = localToday();
 };
 
 export const presetType = (type: string): void => {
@@ -37,7 +44,18 @@ export const presetType = (type: string): void => {
 export const bindForm = (form: HTMLFormElement | null, getContent: () => Content): void => {
   if (!form) return;
   restoreForm(form);
-  form.addEventListener('input', () => captureForm(form));
+  form.addEventListener('input', (ev) => {
+    captureForm(form);
+    // A field stops being flagged as soon as the visitor edits it.
+    const el = ev.target as HTMLElement | null;
+    el?.closest('.field')?.classList.remove('is-bad');
+    el?.removeAttribute('aria-invalid');
+    const status = form.querySelector<HTMLElement>('[data-status]');
+    if (status?.classList.contains('is-bad') && !form.querySelector('.field.is-bad')) {
+      status.className = 'form__status';
+      status.textContent = '';
+    }
+  });
   form.addEventListener('submit', (ev) => {
     ev.preventDefault();
     const c = getContent();
@@ -47,16 +65,36 @@ export const bindForm = (form: HTMLFormElement | null, getContent: () => Content
       status.className = `form__status ${ok ? 'is-ok' : 'is-bad'}`;
       status.innerHTML = html;
     };
+    const r0 = c.reservation;
+    const today = localToday();
+    // Returns a short message for the field's problem, or '' when the value is fine.
+    const problem = (f: Field, v: string): string => {
+      if (!v) return r0.invalid;
+      if (f === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : r0.errors.email;
+      if (f === 'phone') {
+        const digits = v.replace(/\D/g, '').length;
+        return /^[+\d\s().-]+$/.test(v) && digits >= 7 && digits <= 15 ? '' : r0.errors.phone;
+      }
+      if (f === 'date') return v >= today ? '' : r0.errors.date;
+      if (f === 'people') return Number(v) >= 1 && Number.isInteger(Number(v)) ? '' : r0.errors.people;
+      return '';
+    };
     let firstBad: HTMLElement | null = null;
+    let message = '';
     for (const f of FIELDS) {
       const el = form.elements.namedItem(f) as HTMLInputElement | HTMLSelectElement | null;
       if (!el) continue;
-      const bad = !el.value.trim() || !el.checkValidity();
-      el.closest('.field')?.classList.toggle('is-bad', bad);
-      if (bad && !firstBad) firstBad = el;
+      const msg = problem(f, el.value.trim());
+      el.closest('.field')?.classList.toggle('is-bad', !!msg);
+      if (msg) el.setAttribute('aria-invalid', 'true');
+      else el.removeAttribute('aria-invalid');
+      if (msg && !firstBad) {
+        firstBad = el;
+        message = msg;
+      }
     }
     if (firstBad) {
-      set(c.reservation.invalid, false);
+      set(message, false);
       (firstBad as HTMLElement).focus();
       return;
     }

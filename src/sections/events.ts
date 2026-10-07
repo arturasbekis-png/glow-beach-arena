@@ -27,7 +27,7 @@ export const events: SectionDef = {
               <span class="format__n">${pad(i + 1)} / ${pad(e.formats.length)}</span>
               <h3 class="format__t" data-reveal="lines">${lines(f.title.toUpperCase())}</h3>
               <p class="format__p" data-reveal="up">${esc(f.text)}</p>
-              <a class="btn btn--lime" href="#rezervacija" data-reserve-type="${f.key}" data-reveal="up" style="--d:.1s">${esc(c.reservation.cta)} ${arrow}</a>
+              <a class="btn btn--lime" href="#rezervacija" data-reserve-type="${f.key}" data-reveal="up" style="--d:.1s">${esc(f.key === 'tournaments' ? c.reservation.cta : c.prices.cta)} ${arrow}</a>
             </div>
           </div>
         </article>`,

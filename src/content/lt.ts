@@ -124,6 +124,14 @@ export const lt: Content = {
     fallback:
       'Jei el. pašto programa neatsidarė, rašykite rezervacija@auksma.lt arba skambinkite +370 620 71992.',
     mailSubject: 'Rezervacijos užklausa — GLOW BEACH ARENA',
+    lead: 'Pasirinkite datą, trukmę ir žmonių skaičių. Susisiekite dėl pasiūlymo.',
+    notice: 'Rezervacija patvirtinama tik susisiekus su jumis.',
+    errors: {
+      email: 'Įveskite teisingą el. paštą.',
+      phone: 'Įveskite teisingą telefono numerį.',
+      date: 'Pasirinkite šiandienos ar vėlesnę datą.',
+      people: 'Žmonių skaičius turi būti bent 1.',
+    },
   },
   contacts: {
     title: 'Kontaktai',

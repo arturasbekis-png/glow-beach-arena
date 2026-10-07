@@ -124,6 +124,14 @@ export const en: Content = {
     fallback:
       'If your email app did not open, write to rezervacija@auksma.lt or call +370 620 71992.',
     mailSubject: 'Booking request — GLOW BEACH ARENA',
+    lead: 'Choose the date, duration and number of people. Contact us for a quote.',
+    notice: 'A booking is confirmed only once we contact you.',
+    errors: {
+      email: 'Enter a valid email address.',
+      phone: 'Enter a valid phone number.',
+      date: 'Choose today’s date or a later one.',
+      people: 'Number of people must be at least 1.',
+    },
   },
   contacts: {
     title: 'Contact',

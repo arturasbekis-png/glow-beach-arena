@@ -1,3 +1,4 @@
+import { site } from '../config';
 import { arrow, esc, lines } from '../util';
 import type { SectionDef } from './def';
 
@@ -13,8 +14,9 @@ export const reservation: SectionDef = {
       <div class="reservation__head">
         <p class="meta" data-reveal="fade"><span>09</span> — ${esc(r.title)}</p>
         <h2 class="mega" data-reveal="lines">${lines(r.cta.toUpperCase())}</h2>
+        <p class="lead reservation__lead" data-reveal="up">${esc(r.lead)}</p>
       </div>
-      <form class="form" id="res-form" novalidate data-reveal="up">
+      <form class="form" id="res-form" novalidate aria-describedby="res-note" data-reveal="up">
         <div class="form__row form__row--3">
           <label class="field"><span>${esc(l.date)}</span><input type="date" name="date" required autocomplete="off" /></label>
           <label class="field"><span>${esc(l.duration)}</span><input type="text" name="duration" required autocomplete="off" /></label>
@@ -36,8 +38,14 @@ export const reservation: SectionDef = {
         </div>
         <div class="form__foot">
           <button class="btn btn--lime" type="submit">${esc(r.submit)} ${arrow}</button>
-          <div class="form__status" role="status" aria-live="polite" data-status></div>
+          <p class="form__note" id="res-note">${esc(r.notice)}</p>
         </div>
+        <div class="form__status" role="status" aria-live="polite" data-status></div>
+        <p class="form__contact">
+          <span>${esc(site.address)}</span>
+          <a href="${site.phoneHref}">${esc(site.phone)}</a>
+          <a href="${site.emailHref}">${esc(site.email)}</a>
+        </p>
       </form>
     </div>`;
   },

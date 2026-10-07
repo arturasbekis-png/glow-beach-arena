@@ -1652,6 +1652,10 @@ ol {
 .field select:focus {
   outline: none;
   border-bottom-color: var(--lime);
+  box-shadow: 0 1px 0 0 var(--lime);
+}
+.field:focus-within > span {
+  color: var(--lime);
 }
 .field.is-bad input,
 .field.is-bad select {
@@ -1672,6 +1676,29 @@ ol {
   line-height: 1.5;
   max-width: 56ch;
 }
+.reservation__lead {
+  margin-top: clamp(1.2rem, 2.4vw, 1.8rem);
+}
+.form__note {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--off);
+  max-width: 44ch;
+  text-wrap: balance;
+}
+.form__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.8rem;
+  font-size: 0.95rem;
+  color: var(--dim);
+}
+.form__contact a {
+  color: var(--off);
+  text-decoration: underline;
+  text-decoration-color: rgba(244, 244, 240, 0.35);
+  text-underline-offset: 0.25em;
+}
 .form__status:empty {
   display: none;
 }
@@ -1687,6 +1714,12 @@ ol {
 }
 .form__status.is-bad {
   color: var(--bad);
+}
+@media (max-width: 759px) {
+  .form__foot .btn {
+    width: 100%;
+    min-height: 3.4rem;
+  }
 }
 @media (min-width: 760px) {
   .form__row--3 {
