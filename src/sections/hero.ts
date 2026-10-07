@@ -10,8 +10,7 @@ export const hero: SectionDef = {
       ${has(heroVideo) ? `<video class="hero__media" autoplay muted loop playsinline preload="metadata"><source src="./${heroVideo}" type="video/mp4" /></video>` : ''}
       ${has(heroImage) ? `<img class="hero__media" src="./${heroImage}" alt="" />` : ''}
       <div class="hero__veil"></div>
-      <div class="hero__light hero__light--lime"></div>
-      <div class="hero__light hero__light--cyan"></div>
+      <canvas class="hero__beams" data-beams></canvas>
       <canvas class="hero__canvas" data-particles></canvas>
       <div class="hero__sand"></div>
     </div>

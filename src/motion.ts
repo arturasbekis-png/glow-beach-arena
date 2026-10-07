@@ -1,5 +1,6 @@
 import { ORDER } from './config';
 import { clamp, pad, reduceMotion } from './util';
+import { startBeams } from './beams';
 
 /**
  * Controlled motion: reveals, scroll-fill text, light parallax, marquee drift, stacked panels and a pinned
@@ -37,6 +38,7 @@ let heroIo: IntersectionObserver | null = null;
 let raf = 0;
 let lastY = 0;
 let particlesStop: (() => void) | null = null;
+let beamsStop: (() => void) | null = null;
 const desktopGallery = window.matchMedia('(min-width: 861px)');
 
 const header = (): HTMLElement | null => document.querySelector('.header');
@@ -219,6 +221,7 @@ export const bindMotion = (root: HTMLElement, instant: boolean): void => {
   marqueeIo?.disconnect();
   heroIo?.disconnect();
   particlesStop?.();
+  beamsStop?.();
 
   const rm = reduceMotion();
   st.reveals = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
@@ -313,6 +316,8 @@ export const bindMotion = (root: HTMLElement, instant: boolean): void => {
     heroIo.observe(heroEl);
     const canvas = heroEl.querySelector<HTMLCanvasElement>('[data-particles]');
     if (canvas) particlesStop = startParticles(canvas);
+    const beams = heroEl.querySelector<HTMLCanvasElement>('[data-beams]');
+    if (beams) beamsStop = startBeams(beams, () => st.heroVisible, rm);
     if (!rm) {
       heroEl.addEventListener('pointermove', (ev) => {
         const r = heroEl.getBoundingClientRect();
