@@ -1,16 +1,13 @@
-import { galleryFiles, has } from '../config';
+import { galleryPhotos, has } from '../config';
 import { esc, lines, pad } from '../util';
-import { scene, type SceneKind } from '../scenes';
 import type { SectionDef } from './def';
-
-// Order matches c.gallery.tags and config.galleryFiles: Arena, Aikštelė, Šviesa, Tinklas, Smėlis
-const kinds: SceneKind[] = ['light', 'court', 'light', 'net', 'sand'];
 
 export const gallery: SectionDef = {
   id: 'galerija',
   cls: 'gallery',
   html: (c) => {
     const g = c.gallery;
+    const photos = galleryPhotos.filter((p) => has(`photos/gallery/${p.file}`));
     return `
     <div class="gallery__pin">
       <div class="gallery__track" data-gallery-track>
@@ -20,17 +17,17 @@ export const gallery: SectionDef = {
           <p class="lead" data-reveal="up">${esc(g.text)}</p>
           <p class="gallery__hint" aria-hidden="true"><i></i></p>
         </div>
-        ${g.tags
-          .map(
-            (tag, i) => `
-          <figure class="slide slide--${i % 3}">
+        ${photos
+          .map((p, i) => {
+            const tag = p.tag !== undefined ? g.tags[p.tag] : undefined;
+            return `
+          <figure class="slide slide--${i % 3}" style="--ar:${p.w} / ${p.h};--ar-n:${(p.w / p.h).toFixed(4)}">
             <div class="slide__frame">
-              ${scene(kinds[i] ?? 'sand')}
-              ${has(`photos/${galleryFiles[i] ?? ''}`) ? `<img src="./photos/${galleryFiles[i]}" alt="${esc(tag)}" loading="lazy" decoding="async" />` : ''}
+              <img src="./photos/gallery/${p.file}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" decoding="async" />
             </div>
-            <figcaption><span>${pad(i + 1)}</span><b>${esc(tag)}</b></figcaption>
-          </figure>`,
-          )
+            <figcaption><span>${pad(i + 1)}</span>${tag ? `<b>${esc(tag)}</b>` : ''}</figcaption>
+          </figure>`;
+          })
           .join('')}
       </div>
     </div>`;

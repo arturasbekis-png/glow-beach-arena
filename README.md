@@ -24,7 +24,7 @@ Stop the preview with Ctrl+C. To start from a different port: `set PORT=5000 && 
 | --- | --- |
 | `public/brand/logo.svg` (or `logo.png`) | Official logo in the header, used exactly as supplied. Until it exists, the name shows as plain text. |
 | `public/game/index.html` (+ its assets) | Existing GLOW GAME embedded unchanged in ŽAIDIMAS (iframe). Survives language switches without reloading. |
-| `public/photos/arena.jpg`, `aikstele.jpg`, `sviesa.jpg`, `tinklas.jpg`, `smelis.jpg` | Real arena photos replace the abstract placeholder scene in each gallery slot. |
+| `public/photos/gallery/*.jpg` | Gallery photos (listed in `galleryPhotos`, `src/config.ts`), used exactly as supplied. |
 | `public/photos/hero.jpg`, `public/media/hero.mp4` | Optional full-bleed hero media. |
 
 Rebuild after adding files — the build records which optional files exist, so missing ones are never requested.
