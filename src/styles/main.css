@@ -1865,23 +1865,12 @@ html.lb-open {
   }
 }
 
-/* ---------- 08 prices (the one light chapter) ---------- */
+/* ---------- 08 prices (dark navy chapter, same tokens as the rest of the site) ---------- */
 .prices {
   padding-block: var(--pad-y);
-  background: var(--off);
-  color: var(--black);
-}
-.prices .meta {
-  color: rgba(5, 5, 5, 0.55);
-}
-.prices .meta span {
-  background: var(--black);
-  color: var(--lime);
-  padding: 0.2em 0.55em;
-}
-.prices .lead {
-  color: var(--black);
-  max-width: 30ch;
+  background: var(--navy);
+  color: var(--off);
+  border-bottom: 1px solid var(--line); /* keeps it distinct from the navy reservation section that follows */
 }
 .prices__intro {
   display: grid;
@@ -1891,32 +1880,32 @@ html.lb-open {
 .spec {
   display: grid;
   gap: 0;
-  border-top: 1px solid var(--black);
+  border-top: 1px solid var(--line);
 }
 .spec li {
   display: flex;
   align-items: baseline;
   gap: 1rem;
   padding-block: 0.9rem;
-  border-bottom: 1px solid rgba(5, 5, 5, 0.25);
+  border-bottom: 1px solid var(--line);
   font-size: clamp(1.1rem, 1.6vw, 1.5rem);
   font-weight: 500;
 }
 .spec li span {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
-  color: rgba(5, 5, 5, 0.5);
+  color: var(--lime);
 }
 .plist {
-  border-top: 1px solid var(--black);
+  border-top: 1px solid var(--line);
 }
 .prow {
   display: grid;
   gap: 1.4rem;
   padding-block: clamp(1.6rem, 3.4vw, 3rem);
-  border-bottom: 1px solid var(--black);
+  border-bottom: 1px solid var(--line);
   align-items: center;
-  transition: background-color 0.5s var(--ease), color 0.5s var(--ease), padding 0.5s var(--ease);
+  transition: background-color 0.5s var(--ease), padding 0.5s var(--ease);
 }
 .prow__t {
   font-size: clamp(1.9rem, 6vw, 5.4rem);
@@ -1926,8 +1915,7 @@ html.lb-open {
   margin-top: 0.7rem;
   max-width: 40ch;
   font-weight: 400;
-  color: rgba(5, 5, 5, 0.7);
-  transition: color 0.5s;
+  color: var(--dim);
 }
 .prow__price {
   display: flex;
@@ -1938,7 +1926,7 @@ html.lb-open {
   font-size: 0.7rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(5, 5, 5, 0.55);
+  color: var(--dim);
 }
 .prow__price b {
   font-size: clamp(1.3rem, 2.4vw, 2.1rem);
@@ -1946,28 +1934,20 @@ html.lb-open {
   letter-spacing: -0.02em;
 }
 .prices .btn--line {
-  border-color: var(--black);
-  color: var(--black);
   justify-self: start;
 }
 @media (hover: hover) {
-  .prices .btn--line:hover {
-    background: var(--black);
-    color: var(--lime);
-    border-color: var(--black);
-  }
   .prow:hover {
     background: var(--black);
-    color: var(--off);
     padding-inline: clamp(1rem, 2vw, 2rem);
-  }
-  .prow:hover .prow__p,
-  .prow:hover .prow__price span {
-    color: rgba(244, 244, 240, 0.65);
   }
   .prow:hover .btn--line {
     border-color: var(--lime);
     color: var(--lime);
+  }
+  .prow:hover .btn--line:hover {
+    background: var(--lime);
+    color: var(--black);
   }
 }
 @media (min-width: 860px) {
