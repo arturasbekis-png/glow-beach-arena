@@ -330,6 +330,10 @@ ol {
   backdrop-filter: blur(16px);
   border-color: var(--line);
 }
+.header.is-panel {
+  background: rgba(5, 5, 5, 0.98);
+  border-color: var(--line);
+}
 .header.is-menu {
   background: transparent;
   -webkit-backdrop-filter: none;
@@ -374,7 +378,8 @@ ol {
   display: none;
   gap: clamp(0.9rem, 1.5vw, 2rem);
 }
-.nav a {
+.nav a,
+.nav__trigger {
   position: relative;
   padding-block: 0.5rem;
   font-size: 0.68rem;
@@ -384,7 +389,8 @@ ol {
   color: rgba(244, 244, 240, 0.8);
   transition: color 0.3s;
 }
-.nav a::after {
+.nav a::after,
+.nav__trigger::after {
   content: "";
   position: absolute;
   left: 0;
@@ -397,12 +403,35 @@ ol {
   transition: transform 0.5s var(--ease);
 }
 .nav a[aria-current="true"],
-.nav a:hover {
+.nav a:hover,
+.nav__trigger[aria-current="true"],
+.nav__trigger:hover,
+.nav__trigger[aria-expanded="true"] {
   color: var(--white);
 }
 .nav a[aria-current="true"]::after,
-.nav a:hover::after {
+.nav a:hover::after,
+.nav__trigger[aria-current="true"]::after,
+.nav__trigger:hover::after,
+.nav__trigger[aria-expanded="true"]::after {
   transform: scaleX(1);
+}
+/* panel triggers: same look as the links, plus a small lime indicator */
+.nav__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+.nav__chev {
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid var(--lime);
+  border-bottom: 1px solid var(--lime);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.4s var(--ease);
+}
+.nav__trigger[aria-expanded="true"] .nav__chev {
+  transform: translateY(1px) rotate(-135deg);
 }
 .header__right {
   display: flex;
@@ -490,6 +519,143 @@ ol {
   }
 }
 
+/* ---------- desktop dropdown panel (connected to the header; only ≥1240px, where the inline nav exists) ---------- */
+.navpanel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background: rgba(5, 5, 5, 0.98);
+  border-bottom: 1px solid var(--line);
+}
+.navpanel.is-open {
+  display: block;
+}
+.navpanel__view {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(16px, 2vw, 32px);
+  align-items: start;
+  padding: clamp(40px, 3.6vw, 60px) var(--gutter) clamp(48px, 4.4vw, 72px);
+}
+.navpanel__view[hidden] {
+  display: none;
+}
+.navpanel__intro {
+  grid-column: 1 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding-right: 2rem;
+}
+.navpanel__lede {
+  font-size: clamp(1.5rem, 2.1vw, 2.2rem);
+  font-weight: 700;
+  font-stretch: 108%;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+.navpanel__note {
+  max-width: 30ch;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--dim);
+}
+.navpanel__over,
+.navpanel__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+.navpanel__over .arrow,
+.navpanel__cta .arrow {
+  transition: transform 0.4s var(--ease);
+}
+.navpanel__over:hover .arrow,
+.navpanel__cta:hover .arrow {
+  transform: translateX(4px);
+}
+.navpanel__list {
+  grid-column: 5 / 13;
+  display: grid;
+  gap: clamp(22px, 2.2vw, 34px);
+}
+.navpanel__view--rezervacija .navpanel__list,
+.navpanel__view--kontaktai .navpanel__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 3vw, 56px);
+}
+.navpanel__entry {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.navpanel__item {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  column-gap: 0.4rem;
+  row-gap: 0.45rem;
+  align-items: baseline;
+  min-width: 0;
+}
+.navpanel__item span {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--lime);
+}
+.navpanel__item b {
+  font-size: clamp(1.25rem, 1.75vw, 1.8rem);
+  font-weight: 700;
+  font-stretch: 108%;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  overflow-wrap: anywhere;
+}
+.navpanel__view--kontaktai .navpanel__item b {
+  text-transform: none;
+}
+.navpanel__item em {
+  grid-column: 2;
+  max-width: 52ch;
+  font-style: normal;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--dim);
+}
+a.navpanel__item:hover b {
+  color: var(--lime);
+}
+.navpanel__cta {
+  flex: none;
+}
+/* the page behind an open panel is subtly dimmed (below the header, above the page and the consent bar) */
+.navdim {
+  position: fixed;
+  inset: 0;
+  z-index: 58;
+  background: rgba(5, 5, 5, 0.5);
+}
+.navdim[hidden] {
+  display: none;
+}
+@media (max-width: 1239px) {
+  .navpanel,
+  .navdim {
+    display: none !important;
+  }
+}
+
 /* ---------- fullscreen menu ---------- */
 .menu {
   position: fixed;
@@ -546,6 +712,79 @@ ol {
   transition-delay: calc(0.18s + var(--i) * 0.05s);
 }
 .menu__nav a[aria-current="true"] {
+  color: var(--lime);
+}
+
+/* mobile: Renginiai / Rezervacija / Kontaktai rows get a + / × toggle; the label still navigates as before */
+.menu__row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.menu__row > a {
+  flex: 1;
+  min-width: 0;
+}
+.menu__toggle {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+  transition: opacity 0.6s var(--ease), transform 0.8s var(--ease), border-color 0.3s;
+}
+.menu.is-open .menu__toggle {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.18s + var(--i) * 0.05s);
+}
+.menu__toggle i::before,
+.menu__toggle i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -7px;
+  background: var(--lime);
+  transition: transform 0.4s var(--ease);
+}
+.menu__toggle i::after {
+  transform: rotate(90deg);
+}
+.menu__toggle[aria-expanded="true"] {
+  border-color: var(--lime);
+}
+.menu__toggle[aria-expanded="true"] i::before {
+  transform: rotate(45deg);
+}
+.menu__toggle[aria-expanded="true"] i::after {
+  transform: rotate(135deg);
+}
+.menu__sub {
+  overflow: hidden;
+  margin: 0.2rem 0 0.9rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
+}
+.menu__sub li a,
+.menu__sub li p {
+  display: block;
+  padding: 0.55rem 0;
+  font-size: clamp(0.95rem, 3.8vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--off);
+}
+.menu__sub li p {
+  text-transform: none;
+  color: var(--dim);
+}
+.menu__sub li a:hover {
   color: var(--lime);
 }
 .menu__foot {

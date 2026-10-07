@@ -19,7 +19,7 @@ export const events: SectionDef = {
       ${e.formats
         .map(
           (f, i) => `
-        <article class="format format--${f.key}" style="--z:${i + 1}">
+        <article class="format format--${f.key}" id="renginiai-${f.key}" style="--z:${i + 1}">
           <div class="format__inner">
             <div class="format__art" data-parallax="0.06">${scene(kinds[f.key] ?? 'events')}</div>
             <div class="format__shade"></div>

@@ -34,6 +34,7 @@ export interface Content {
     fullscreen: string;
     language: string;
     homeLabel: string;
+    more: string;
   };
   nav: NavItem[];
   hero: { tagline: string };

@@ -8,6 +8,7 @@ import { bindForm, captureForm, presetType } from './form';
 import { initAnalytics } from './analytics';
 import { mountConsent, refreshConsent } from './consent';
 import { initLightbox, refreshLightbox } from './lightbox';
+import { collapseMobile, initNav, resetNav } from './navpanel';
 import { buildGameShell, gameHeadHtml, mountGame } from './sections/game';
 import type { SectionDef } from './sections/def';
 import { hero } from './sections/hero';
@@ -80,6 +81,7 @@ const render = (instant: boolean): void => {
   document.querySelector('.skip')!.textContent = c.ui.skip;
 
   captureForm(document.getElementById('res-form') as HTMLFormElement | null);
+  resetNav();
 
   headerEl.innerHTML = headerHtml(c, lang);
   menuEl.innerHTML = menuHtml(c, lang);
@@ -116,19 +118,32 @@ const setMenu = (open: boolean): void => {
   btn?.setAttribute('aria-expanded', String(open));
   const label = headerEl.querySelector<HTMLElement>('.burger__label');
   if (label) label.textContent = open ? content().ui.close : content().ui.menu;
+  if (!open) collapseMobile();
   if (open) menuEl.querySelector<HTMLElement>('a')?.focus({ preventScroll: true });
   else btn?.focus({ preventScroll: true });
 };
 
 /* ---------- scrolling ---------- */
+// Event cards are sticky, stacked panels: scrolling to one means scrolling to the point where it has just fully
+// covered the card before it — its natural (non-sticky) position minus its sticky `top` (0 on desktop, the header
+// height on mobile, see .format in main.css). The card then sits exactly where it rests during a normal scroll.
+const cardTop = (card: HTMLElement): number => {
+  const list = card.parentElement;
+  if (!list) return card.getBoundingClientRect().top + window.scrollY;
+  let y = list.getBoundingClientRect().top + window.scrollY;
+  for (const sib of Array.from(list.children)) {
+    if (sib === card) break;
+    y += (sib as HTMLElement).offsetHeight;
+  }
+  return Math.max(0, Math.round(y - (parseFloat(getComputedStyle(card).top) || 0)));
+};
 const goTo = (hash: string, smooth = true): void => {
   const id = hash.replace('#', '');
   const el = id ? document.getElementById(id) : null;
   if (!el) return;
-  el.scrollIntoView({
-    behavior: smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto',
-    block: 'start',
-  });
+  const behavior = smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto';
+  if (el.classList.contains('format')) window.scrollTo({ top: cardTop(el), behavior });
+  else el.scrollIntoView({ behavior, block: 'start' });
   history.replaceState(null, '', `#${id}`);
 };
 
@@ -202,4 +217,5 @@ render(false);
 initAnalytics();
 mountConsent(content);
 initLightbox(content);
+initNav();
 if (location.hash.length > 1) requestAnimationFrame(() => goTo(location.hash, false));

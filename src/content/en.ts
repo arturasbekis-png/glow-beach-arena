@@ -16,6 +16,7 @@ export const en: Content = {
     fullscreen: 'Full screen',
     language: 'Language',
     homeLabel: 'GLOW BEACH ARENA — back to top',
+    more: 'Show more',
   },
   nav: [
     { id: 'arena', label: 'Arena' },

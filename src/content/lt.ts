@@ -16,6 +16,7 @@ export const lt: Content = {
     fullscreen: 'Per visą ekraną',
     language: 'Kalba',
     homeLabel: 'GLOW BEACH ARENA — į pradžią',
+    more: 'Rodyti daugiau',
   },
   nav: [
     { id: 'arena', label: 'Arena' },
