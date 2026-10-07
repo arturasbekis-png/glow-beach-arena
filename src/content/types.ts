@@ -96,5 +96,6 @@ export interface Content {
     reserve: string;
   };
   final: { cta: string };
+  consent: { label: string; text: string; accept: string; decline: string; settings: string };
   footer: { rights: string };
 }

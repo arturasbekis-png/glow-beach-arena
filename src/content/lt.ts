@@ -146,5 +146,12 @@ export const lt: Content = {
     reserve: 'Rezervuoti',
   },
   final: { cta: 'Rezervuoti' },
+  consent: {
+    label: 'Analitika',
+    text: 'Naudojame analitiką, kad suprastume, kaip lankytojai naudojasi svetaine ir galėtume ją tobulinti.',
+    accept: 'Sutinku',
+    decline: 'Nesutinku',
+    settings: 'Analitikos nustatymai',
+  },
   footer: { rights: '© 2026 GLOW BEACH ARENA' },
 };

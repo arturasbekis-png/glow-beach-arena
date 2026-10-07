@@ -1,5 +1,6 @@
 import { has, site } from './config';
 import { arrow, esc } from './util';
+import { consentAvailable } from './analytics';
 import type { Content, Lang } from './content/types';
 
 // The official logo is dropped in at public/brand/logo.svg (preferred) or logo.png. It is never redrawn here;
@@ -67,4 +68,7 @@ export const footerHtml = (c: Content, lang: Lang): string => `
       <a href="${site.emailHref}">${esc(site.email)}</a>
     </div>
   </div>
-  <div class="wrap footer__legal"><span>${esc(c.footer.rights)}</span></div>`;
+  <div class="wrap footer__legal">
+    <span>${esc(c.footer.rights)}</span>
+    ${consentAvailable() ? `<button class="footer__settings" type="button" data-consent-open>${esc(c.consent.settings)}</button>` : ''}
+  </div>`;

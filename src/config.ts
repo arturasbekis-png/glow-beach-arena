@@ -16,6 +16,13 @@ export const site = {
 export const mapUrl =
   'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Kareivių g. 15A, Vilnius');
 
+// Google Analytics 4. Placeholder = analytics is OFF (nothing is loaded or sent). To switch it on, replace the value
+// with the real Measurement ID (G-…) from GA4 > Admin > Data streams. See README "Analytics" (consent!) first.
+export const gaMeasurementId = 'G-XXXXXXXXXX';
+// While true, nothing is loaded or sent until the visitor clicks "Sutinku" in the consent notice (src/consent.ts).
+// Set it to false only after deciding consent is not required (the notice is then never shown).
+export const analyticsNeedsConsent = true;
+
 // Optional assets present in public/ at build time (injected by build.mjs). Missing files are never requested.
 declare const __PUBLIC_FILES__: string;
 const publicFiles: string[] = typeof __PUBLIC_FILES__ === 'string' ? (JSON.parse(__PUBLIC_FILES__) as string[]) : [];

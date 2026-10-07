@@ -1,5 +1,6 @@
 import { site } from './config';
 import type { Content } from './content/types';
+import { eventTypeLabel, track } from './analytics';
 
 /**
  * Reservation form. There is no booking backend, so submitting only PREPARES an email to the club.
@@ -94,6 +95,8 @@ export const bindForm = (form: HTMLFormElement | null, getContent: () => Content
       }
     }
     if (firstBad) {
+      const bad = firstBad as HTMLInputElement | HTMLSelectElement;
+      track('reservation_form_error', { form_field: bad.name, error_type: bad.value.trim() ? 'invalid' : 'missing' });
       set(message, false);
       (firstBad as HTMLElement).focus();
       return;
@@ -111,6 +114,8 @@ export const bindForm = (form: HTMLFormElement | null, getContent: () => Content
       `${r.labels.email}: ${data.get('email')}`,
     ].join('\n');
     const href = `${site.emailHref}?subject=${encodeURIComponent(r.mailSubject)}&body=${encodeURIComponent(body)}`;
+    // An inquiry has been prepared — not a confirmed booking. Only the event category is sent, never the entered data.
+    track('reservation_form_submit', { event_type: eventTypeLabel(typeKey) });
     set(
       `<strong>${r.prepared}</strong> ${r.notConfirmed}<br /><span>${r.fallback}</span>`,
       true,

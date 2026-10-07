@@ -5,6 +5,8 @@ import { ORDER } from './config';
 import { footerHtml, headerHtml, menuHtml } from './chrome';
 import { bindMotion, initGlobalMotion, refreshLayout } from './motion';
 import { bindForm, captureForm, presetType } from './form';
+import { initAnalytics } from './analytics';
+import { mountConsent, refreshConsent } from './consent';
 import { buildGameShell, gameHeadHtml, mountGame } from './sections/game';
 import type { SectionDef } from './sections/def';
 import { hero } from './sections/hero';
@@ -97,6 +99,7 @@ const render = (instant: boolean): void => {
   bindForm(document.getElementById('res-form') as HTMLFormElement | null, content);
   bindMotion(app, instant);
   refreshLayout();
+  refreshConsent(c);
 };
 
 /* ---------- menu ---------- */
@@ -192,4 +195,6 @@ document.addEventListener(
 
 initGlobalMotion();
 render(false);
+initAnalytics();
+mountConsent(content);
 if (location.hash.length > 1) requestAnimationFrame(() => goTo(location.hash, false));

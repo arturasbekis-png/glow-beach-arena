@@ -2000,12 +2000,35 @@ ol {
   overflow-wrap: anywhere;
 }
 .footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1.5rem;
   margin-top: clamp(2.4rem, 5vw, 4rem);
   padding-top: 1.4rem;
   border-top: 1px solid var(--line);
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   color: var(--dim);
+}
+/* subtle text link that reopens the analytics consent panel */
+.footer__settings {
+  min-height: 44px;
+  padding: 0.6rem 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-color: rgba(244, 244, 240, 0.3);
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.footer__settings:hover {
+  color: var(--lime);
 }
 @media (min-width: 860px) {
   .footer__grid {
@@ -2014,6 +2037,72 @@ ol {
   }
   .footer__contact {
     align-items: flex-start;
+  }
+}
+
+/* ---------- analytics consent notice (shown only until the visitor chooses) ---------- */
+.consent {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 50; /* below the header (60) and the open menu (55) */
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1rem var(--gutter) calc(1rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(7, 16, 24, 0.96);
+  border-top: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: consent-in 0.6s var(--ease) both;
+  transition: transform 0.35s var(--ease), visibility 0s;
+}
+@keyframes consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+.consent__text {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--off);
+  max-width: 62ch;
+}
+.consent__actions {
+  display: flex;
+  gap: 0.6rem;
+}
+.consent .btn {
+  flex: 1;
+  min-height: 2.9rem; /* comfortable tap target */
+  padding-block: 0.7em;
+}
+/* keep the first screen's CTA and the end of the page clear of the panel */
+.has-consent-first .hero {
+  padding-bottom: var(--consent-h, 0px);
+}
+.has-consent body {
+  padding-bottom: var(--consent-h, 0px);
+}
+/* never cover the reservation form while it is being filled in */
+html:has(#res-form :focus-within) .consent {
+  transform: translateY(105%);
+  visibility: hidden;
+  transition: transform 0.35s var(--ease), visibility 0s linear 0.35s;
+}
+@media (min-width: 760px) {
+  .consent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .consent__actions {
+    flex: none;
+  }
+  .consent .btn {
+    flex: none;
+    min-width: 9.5rem;
   }
 }
 

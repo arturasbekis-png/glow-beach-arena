@@ -42,6 +42,32 @@ There is no booking backend. Submitting validates the form and prepares an email
 in the visitor's mail app, and the page states plainly that it is not a confirmed reservation.
 Connect a real endpoint in `src/form.ts` when one exists.
 
+## Analytics (GA4)
+
+Analytics code lives in `src/analytics.ts` and is **off** until a real Measurement ID is set: `gaMeasurementId` in
+`src/config.ts` is the placeholder `G-XXXXXXXXXX`, and while it is a placeholder (or while `analyticsNeedsConsent` is
+`true` and no consent has been granted) nothing is loaded and nothing is sent.
+
+Events (only these): `reservation_cta_click`, `offer_cta_click` (Gauti pasiūlymą), `reservation_form_start`,
+`reservation_form_submit` (an inquiry was prepared — **not** a confirmed booking), `reservation_form_error`,
+`contact_phone_click`, `contact_email_click`. Parameters are limited to short labels (`cta_location`, `event_type`,
+`source`, `form_field`, `error_type`); names, phone numbers, e-mail addresses and free text are never sent.
+
+Debugging: open the site with `?ga_debug=1` to print every event to the console (also as a dry run without an ID).
+
+Consent: `src/consent.ts` shows a small bottom notice (Sutinku / Nesutinku) only when analytics could actually run (a real
+ID is set) and the visitor has not chosen yet. The choice is stored in `localStorage` as `analytics_consent = granted | denied`
+(no personal data). "Sutinku" calls `grantAnalyticsConsent()`; "Nesutinku" keeps GA4 completely off. Until a visitor agrees —
+and for everyone who refuses — no Google request, `gtag`, `dataLayer` or analytics cookie exists. `?ga_debug=1` also shows
+the notice and the footer link while the placeholder ID is in place, so they can be previewed.
+
+Changing the decision later: the footer link "Analitikos nustatymai" (shown under the same condition as the notice) reopens
+the same panel. "Sutinku" stores `granted` and calls `grantAnalyticsConsent()`; "Nesutinku" stores `denied`, stops sending
+immediately (Google's `ga-disable-<ID>` switch) and removes any `_ga*` cookies. Esc closes a reopened panel without a change.
+
+To activate: (1) replace the placeholder in `src/config.ts` with the real `G-…` ID; (2) in GA4 Enhanced measurement, turn off
+"Form interactions" so it does not duplicate the form events; (3) commit and deploy. (Before launch, also consider a privacy notice page — none exists yet.)
+
 ## Fonts
 
 Archivo (variable) loads from Google Fonts in `index.html`, with a Helvetica/Arial fallback. To self-host, download the

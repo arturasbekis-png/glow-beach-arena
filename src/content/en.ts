@@ -146,5 +146,12 @@ export const en: Content = {
     reserve: 'Book',
   },
   final: { cta: 'Book' },
+  consent: {
+    label: 'Analytics',
+    text: 'We use analytics to understand how visitors use the website and to improve it.',
+    accept: 'Accept',
+    decline: 'Decline',
+    settings: 'Analytics settings',
+  },
   footer: { rights: '© 2026 GLOW BEACH ARENA' },
 };
